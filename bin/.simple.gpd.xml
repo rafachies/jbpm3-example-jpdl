@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root-container name="jBPMExample" width="1019" height="614">
+  <node name="start" x="7" y="8" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="demandType" x="7" y="123" width="132" height="36">
+    <edge>
+      <label x="-24" y="-20"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="createProject" x="290" y="123" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="consultantActivities" x="593" y="18" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="forkReports" x="539" y="164" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="consultantReport" x="460" y="268" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="managerReport" x="758" y="268" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="joinReports" x="540" y="408" width="252" height="24">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="vendorApproval" x="600" y="577" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="292" h1="-3" w2="333" h2="414"/>
+      <bendpoint w1="290" h1="-216" w2="331" h2="201"/>
+      <bendpoint w1="291" h1="-416" w2="332" h2="1"/>
+    </edge>
+    <edge>
+      <label x="-54" y="-18"/>
+    </edge>
+  </node>
+  <node name="closePoC" x="7" y="476" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="architectChooser" x="7" y="264" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="mailArchitect" x="7" y="369" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="projectFinished" x="203" y="576" width="132" height="36"/>
+  <node name="pocFinished" x="8" y="575" width="132" height="36"/>
+  <deployment graphicalInfoFile="/jbpm-example-jpdl/src/main/jpdl/.simple.gpd.xml" imageFile="/jbpm-example-jpdl/src/main/jpdl/simple.jpg" serverName="localhost" serverPort="8080" serverDeployer="/gpd-deployer/upload">
+    <classesAndResources>
+      <element type="java" value="/jbpm-example-jpdl/src/main/java/com/sample/action/SMTPAuthenticator.java"/>
+      <element type="java" value="/jbpm-example-jpdl/src/main/java/com/sample/action/ArchitectChooserHandler.java"/>
+      <element type="java" value="/jbpm-example-jpdl/src/main/java/com/sample/action/Mail.java"/>
+    </classesAndResources>
+  </deployment>
+</root-container>

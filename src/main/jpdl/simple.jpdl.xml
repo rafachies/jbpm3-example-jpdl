@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition xmlns="" name="jBPMExample">
+
+	<swimlane name="swimlaneManager">
+         <assignment pooled-actors="manager" />
+  	</swimlane>
+  	
+  	<swimlane name="swimlaneConsultant">
+         <assignment pooled-actors="consultant" />
+  	</swimlane>
+  	
+  	<swimlane name="swimlaneVendor">
+         <assignment pooled-actors="vendor" />
+  	</swimlane>
+
+
+	<start-state name="start">
+		<transition name="start" to="demandType"></transition>
+	</start-state>
+	
+	<decision name="demandType" expression="#{demandType}" >
+		<transition to="createProject" name="project"></transition>
+		<transition to="architectChooser" name="poc"></transition>
+	</decision>
+
+	<task-node name="createProject">
+		<task name="createProject" swimlane="swimlaneManager"></task>
+		<transition to="consultantActivities" name="created"></transition>
+	</task-node>
+	
+	
+	<task-node name="consultantActivities">
+		<task name="consultantActivities" swimlane="swimlaneConsultant"></task>
+		<transition to="forkReports" name="forkReports"></transition>
+	</task-node>
+	
+	<fork name="forkReports">
+		<transition to="consultantReport" name="consultantReport"></transition>
+		<transition to="managerReport" name="managerReport"></transition>
+	</fork>
+
+	<task-node name="consultantReport">
+		<task name="consultantReport" swimlane="swimlaneConsultant"></task>
+		<transition to="joinReports" name="consultantReported"></transition>
+	</task-node>
+
+	<task-node name="managerReport" >
+		<task name="managerReport" swimlane="swimlaneManager"></task>
+		<transition to="joinReports" name="managerReported"></transition>
+	</task-node>
+
+	<join name="joinReports">
+		<transition to="vendorApproval" name="vendorApproval"></transition>
+	</join>
+
+	<task-node name="vendorApproval">
+		<task name="vendorApproval" swimlane="swimlaneVendor"></task>
+		<transition to="forkReports" name="reproved"></transition>
+		<transition to="projectFinished" name="projectFinished"></transition>
+	</task-node>
+
+	<task-node name="closePoC">
+		<task name="closePoC">
+			<assignment pooled-actors="#{architect}" />
+		</task>
+		<transition to="pocFinished" name="pocFinished"></transition>
+	</task-node>
+
+	<node name="architectChooser">
+		<transition to="mailArchitect" name="sendMail">
+			<action class="com.sample.action.ArchitectChooserHandler" name="chooser"></action>
+		</transition>
+	</node>
+
+	<mail-node name="mailArchitect" to="rafachies@gmail.com">
+		<subject>
+			PoC
+		</subject>
+		<text>
+			Hi, you have a new PoC to execute.
+Please check your demands.
+
+Cheers !
+		</text>
+		<transition to="closePoC" name="closePoC"></transition>
+	</mail-node>
+	
+
+	<end-state name="projectFinished"></end-state>
+
+	<end-state name="pocFinished"></end-state>
+
+</process-definition>
